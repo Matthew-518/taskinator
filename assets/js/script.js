@@ -42,10 +42,10 @@ var createTaskEl = function(taskDataObj) {
     listItemEl.appendChild(taskInfoEl);
 
     var taskActionsEl = createTaskActions(taskIdCounter);
-    listItemEl.appendChild(taskActionsEl);
+    
 
     tasksToDoEl.appendChild(listItemEl);
-
+    listItemEl.appendChild(taskActionsEl);
     //increase task counter for mext unoque id 
     taskIdCounter++;
 };
@@ -75,21 +75,18 @@ var createTaskActions = function(taskId) {
     statusSelectEl.setAttribute("name", "status-change");
     statusSelectEl.setAttribute("data-task-id", taskId);
 
-    var statusChoices = ["To Do", "In Progress", "Completed"];
-
-    for (var i = 0; i < statusChoices.length; i++) {
-        //create option elememt
-        var statusOptionEl = document.createElement("option");
-        statusOptionEl.textContent = statusChoices[i];
-        statusOptionEl.setAttribute("value", statusChoices[i]);
-
-        //append to select 
-        statusSelectEl.appendChild(statusOptionEl);
-    }
-
     actionContainerEl.appendChild(statusSelectEl);
 
+    var statusChoices = ["To Do", "In Progress", "Completed"];
 
+   for (var i = 0; i < statusChoices.length; i++) {
+    //create option elememt
+     var statusOptionEl = document.createElement("option");
+     statusOptionEl.textContent = statusChoices[i];
+     statusOptionEl.setAttribute("value", statusChoices[i]);
+        //append to select 
+    statusSelectEl.appendChild(statusOptionEl);
+    }
 
     return actionContainerEl;
 
@@ -99,31 +96,25 @@ var taskButtonHandler = function(event) {
     console.log(event.target);
 
     if (event.target.matches(".delete-btn")) {
+        // get the element's task id
         var taskId = event.target.getAttribute("data-task-id");
         console.log(taskId);
-    }
-};
+      }
+    };
 
 var deleteTask = function(taskId) {
-    var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
-    taskSelected.remove();
+    console.log(taskId);
 
     if (event.target.matches(".delete-btn")) {
         var taskId = event.target.getAttribute("data-task-id");
         deleteTask(taskId);
-    }
-
-
-};
-
-
-
+      }
+    };
+    
+    
 
    
-
-
-
-   
+    
 
 pageContentEl.addEventListener("click", taskButtonHandler);
 formEl.addEventListener("submit", taskFormHandler);
